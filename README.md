@@ -1,5 +1,7 @@
 # AcFunDeviceReveal - A站手机型号美化脚本
 
+[![GitHub stars](https://img.shields.io/github/stars/name-xxl/AcFunDeviceReveal.svg?style=social)](https://github.com/name-xxl/AcFunDeviceReveal/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/name-xxl/AcFunDeviceReveal.svg?style=social)](https://github.com/name-xxl/AcFunDeviceReveal/network/members)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tampermonkey](https://img.shields.io/badge/Tampermonkey-v2.0.0-blue.svg)](https://www.tampermonkey.net/)
 
@@ -231,6 +233,7 @@ A: 不会。脚本完全本地运行，不上传任何数据。
 
 ## 🔗 相关链接
 
+- [AcFunDeviceReveal](https://github.com/name-xxl/AcFunDeviceReveal) - 本项目 GitHub 仓库
 - [AcFun](https://www.acfun.cn/) - A站官网
 - [MobileModels](https://github.com/KHwang9883/MobileModels) - 手机品牌型号汇总
 - [Apple Device Types](https://gist.github.com/adamawolf/3048717) - Apple 设备型号
