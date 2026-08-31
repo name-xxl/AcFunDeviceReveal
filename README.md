@@ -1,17 +1,13 @@
 # AcFunDeviceReveal - A站手机型号美化脚本
 
-> 将 A站（AcFun）评论区的手机内部代号替换为用户友好的设备名称
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tampermonkey](https://img.shields.io/badge/Tampermonkey-v2.0.0-blue.svg)](https://www.tampermonkey.net/)
 
----
+## 📖 项目简介
 
-## 📖 简介
+A站（AcFun）评论区会显示用户发帖时使用的设备型号，但展示的是厂商内部代号（如 `RMX3619`、`iPhone3,1`、`NOH-AN00`），普通用户难以直观识别。
 
-A站评论区会显示用户发帖时使用的设备型号，但显示的是厂商内部代号（如 `RMX3619`、`iPhone3,1`），普通用户难以识别。
-
-本脚本通过内置数据库和用户导入的方式，将这些内部代号转换为友好的设备名称：
+本油猴脚本通过内置数据库和用户自主导入的方式，将这些晦涩的内部代号转换为用户友好的设备名称，让评论区的设备信息一目了然。
 
 | 原始显示 | 美化后 |
 |----------|--------|
@@ -20,6 +16,14 @@ A站评论区会显示用户发帖时使用的设备型号，但显示的是厂�
 | `HUAWEI NOH-AN00` | `华为 Mate 40 Pro` |
 | `V2324A` | `vivo X100` |
 | `SM-S9280` | `Galaxy S24 Ultra` |
+
+> **⚠️ 型号数据更新提示**
+> 
+> 本脚本内置的型号数据为常用机型快照。如需获取最新的设备型号映射，请前往上游数据仓库查阅和下载：
+> - 📱 **安卓/其他设备**: [KHwang9883/MobileModels](https://github.com/KHwang9883/MobileModels)
+> - 🍎 **Apple 设备**: [adamawolf/Apple_mobile_device_types](https://gist.github.com/adamawolf/3048717)
+> 
+> 下载后通过脚本菜单「📥 导入型号数据」即可更新本地数据库。
 
 ---
 
