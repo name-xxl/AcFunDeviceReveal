@@ -1047,9 +1047,8 @@ ${sampleText || '  (无数据)'}`;
         el.setAttribute(PROCESSED_ATTR, '1');
         el.dataset.original = text;
         
-        if (settings.showTooltip) {
-          el.title = `原始型号: ${text}\n点击可切换显示`;
-        }
+        // 始终设置 title 显示原始型号（悬停可见）
+        el.title = `原始型号: ${text}\n点击可切换显示`;
         
         // 使用 textContent 而非 innerHTML（更安全更快）
         el.textContent = friendlyName;
@@ -1061,7 +1060,7 @@ ${sampleText || '  (无数据)'}`;
         }
         
         newProcessed++;
-        log(`✅ ${modelCode} → ${friendlyName}`);
+        log(`✅ ${modelCode} → ${friendlyName} (原文: ${text})`);
       } else {
         notFound++;
         log(`❓ 未匹配: ${modelCode} (原文: ${text})`);
@@ -1086,9 +1085,8 @@ ${sampleText || '  (无数据)'}`;
     el.textContent = el.dataset.original;
     el.dataset.original = current;
     
-    if (settings.showTooltip) {
-      el.title = `原始型号: ${current}\n点击可切换显示`;
-    }
+    // 始终更新 title 显示当前的"原始型号"
+    el.title = `原始型号: ${current}\n点击可切换显示`;
   }
 
   // ============================================================
