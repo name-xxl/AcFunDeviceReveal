@@ -7,7 +7,7 @@
 
 > **📢 项目合并说明**
 >
-> 本项目的设备型号美化功能已于 [AcFun-Web-IP](https://github.com/name-xxl/AcFun-Web-IP) **v5.7.0** 合并，成为「IP 属地显示 + 设备型号美化」二合一脚本。
+> 本项目的设备型号美化功能已于 [AcFun-Web-IP](https://github.com/name-xxl/AcFun-Web-IP) **v5.8.0** 合并，成为「IP 属地显示 + 设备型号美化」二合一脚本。
 >
 > - 需要 **IP 属地 + 设备美化** 二合一 → 请安装新仓库 [**AcFun-Web-IP**](https://github.com/name-xxl/AcFun-Web-IP)
 > - 只需要 **设备型号美化**（不含 IP 功能）→ 继续使用本仓库，v2.1.0 起为模块化重构版本，后续在此维护
