@@ -1,0 +1,9 @@
+{
+  "name": "acfun-device-reveal",
+  "version": "2.1.0",
+  "description": "A站评论区设备型号美化油猴脚本（纯设备美化，不含 IP 属地）",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "license": "MIT"
+}

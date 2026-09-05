@@ -3,7 +3,14 @@
 [![GitHub stars](https://img.shields.io/github/stars/name-xxl/AcFunDeviceReveal.svg?style=social)](https://github.com/name-xxl/AcFunDeviceReveal/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/name-xxl/AcFunDeviceReveal.svg?style=social)](https://github.com/name-xxl/AcFunDeviceReveal/network/members)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tampermonkey](https://img.shields.io/badge/Tampermonkey-v2.0.0-blue.svg)](https://www.tampermonkey.net/)
+[![Version](https://img.shields.io/badge/version-v2.1.0-blue.svg)](https://github.com/name-xxl/AcFunDeviceReveal/releases)
+
+> **📢 项目合并说明**
+>
+> 本项目的设备型号美化功能已于 [AcFun-Web-IP](https://github.com/name-xxl/AcFun-Web-IP) **v5.7.0** 合并，成为「IP 属地显示 + 设备型号美化」二合一脚本。
+>
+> - 需要 **IP 属地 + 设备美化** 二合一 → 请安装新仓库 [**AcFun-Web-IP**](https://github.com/name-xxl/AcFun-Web-IP)
+> - 只需要 **设备型号美化**（不含 IP 功能）→ 继续使用本仓库，v2.1.0 起为模块化重构版本，后续在此维护
 
 ## 📖 项目简介
 
@@ -19,48 +26,25 @@ A站（AcFun）评论区会显示用户发帖时使用的设备型号，但展�
 | `V2324A` | `vivo X100` |
 | `SM-S9280` | `Galaxy S24 Ultra` |
 
-> **⚠️ 型号数据更新提示**
-> 
-> 本脚本内置的型号数据为常用机型快照。如需获取最新的设备型号映射，请前往上游数据仓库查阅和下载：
-> - 📱 **安卓/其他设备**: [KHwang9883/MobileModels](https://github.com/KHwang9883/MobileModels)
-> - 🍎 **Apple 设备**: [adamawolf/Apple_mobile_device_types](https://gist.github.com/adamawolf/3048717)
-> 
-> 下载后通过脚本菜单「📥 导入型号数据」即可更新本地数据库。
-
 ---
 
 ## ✨ 功能特性
 
-### 核心功能
-
-- 🔄 **自动美化** - 页面加载时自动替换设备型号
-- 📥 **数据导入** - 支持导入 MobileModels 和 Apple 设备表
+- 🔄 **自动美化** - 页面加载、翻页、SPA 跳转时自动替换设备型号
+- 📱 **内置数据** - ~1000 条主流机型（由脚本从上游数据自动生成，见下文）
+- 📥 **数据导入** - 面板内导入 MobileModels `.md` / Apple 设备表 `.txt` / 粘贴文本，支持合并与跳过已存在条目
 - 💾 **持久存储** - 数据保存在本地，刷新不丢失
 - 🖱️ **点击切换** - 点击型号可切换显示原始/友好名称
+- ⚙️ **原生风格面板** - 仿 A 站原生弹窗的设置面板，导入/重置全程 Toast 提示，无 alert/confirm 打断
 
-### 支持的数据格式
+### 匹配策略（四级）
 
-| 格式 | 示例 | 来源 |
-|------|------|------|
-| `` `MODEL_CODE`: 名称 `` | `` `RMX3619`: 真我 GT Neo5 SE `` | [MobileModels](https://github.com/KHwang9883/MobileModels) |
-| `MODEL_CODE : 名称` | `iPhone3,1 : iPhone 4` | [Apple 设备表](https://gist.github.com/adamawolf/3048717) |
+1. **精确匹配** - O(1) 哈希查找
+2. **大小写不敏感** - O(1) 大写索引
+3. **去尾字母变体** - O(1)（如 `V2324B` → `V2324A`）
+4. **前缀包含** - O(1) 定位 + 小范围遍历
 
-### 内置数据覆盖
-
-- ✅ Apple 全系列（iPhone/iPad/iPod/Apple Watch）
-- ✅ 小米/Redmi/POCO 近年机型
-- ✅ 华为/荣耀 近年机型
-- ✅ OPPO/一加/realme 近年机型
-- ✅ vivo/iQOO 近年机型
-- ✅ 三星 Galaxy 近年机型
-- ✅ 魅族 近年机型
-
-### 性能优化
-
-- 📇 **索引系统** - 使用 Map 哈希表实现 O(1) 查找
-- 🔍 **搜索缓存** - 最近查询结果缓存，避免重复计算
-- ⚡ **DOM 防抖** - 150ms 批量处理，减少重排
-- 👁️ **智能监听** - MutationObserver 只处理相关变更
+查找结果带缓存（上限 500 条，含未命中），避免重复计算。
 
 ---
 
@@ -76,90 +60,86 @@ A站（AcFun）评论区会显示用户发帖时使用的设备型号，但展�
 
 ### 安装脚本
 
-1. 点击脚本管理器图标 → 「添加新脚本」
-2. 将 `AcFunDeviceReveal.user.js` 的内容粘贴进去
-3. 保存（Ctrl+S）
+任选其一：
+
+1. **从 Release 安装（推荐）**：到 [Releases](https://github.com/name-xxl/AcFunDeviceReveal/releases) 下载最新版 `AcFunDeviceReveal.user.js`，Tampermonkey 会自动提示安装
+2. **手动粘贴**：点击脚本管理器图标 → 「添加新脚本」→ 粘贴 `dist/AcFunDeviceReveal.user.js` 的内容 → 保存（Ctrl+S）
 
 ---
 
 ## 🚀 使用方法
 
-### 基本使用
+安装后直接访问 A站 页面，脚本会自动运行。点击油猴菜单「⚙️ 设置面板」进行配置：
 
-安装后直接访问 A站 页面，脚本会自动运行。
+| 面板项 | 说明 |
+|--------|------|
+| 设备型号美化开关 | 即时生效，关闭后停止替换 |
+| 设备数据 · 导入 | 选择文件（可多选）或粘贴文本，支持 MobileModels / Apple 两种格式 |
+| 设备数据 · 导出 | 复制当前数据库 JSON 到剪贴板 |
+| 设备数据 · 重置 | 两步确认后恢复为内置数据（清除导入的数据） |
 
-### 导入完整数据（推荐）
-
-1. 点击脚本管理器图标 → 选择「📥 导入型号数据」
-2. 选择文件：
-   - [MobileModels](https://github.com/KHwang9883/MobileModels) 的 `.md` 文件（支持多选）
-   - [Apple 设备表](https://gist.github.com/adamawolf/3048717) 的 `.txt` 文件
-3. 点击「导入」
-
-### 菜单功能
+### 油猴菜单
 
 | 菜单 | 功能 |
 |------|------|
-| 📥 导入型号数据 | 打开导入界面 |
-| 📊 查看数据库状态 | 显示记录数量和示例 |
-| 📈 性能统计 | 查看索引和缓存状态 |
-| 🔍 调试信息 | 显示页面元素和匹配情况 |
-| 🔄 强制重新处理 | 清除标记，重新扫描 |
-| ⚙️ 脚本设置 | 启用/禁用、提示、切换等 |
-| 📋 导出数据库 | 复制数据到剪贴板 |
-| 🗑️ 清空数据库 | 清除所有数据 |
+| ⚙️ 设置面板 | 打开设置面板 |
+| 🔄 强制重新处理 | 清除标记，按当前文本重新匹配 |
+| 📋 复制全部日志 | 复制运行日志（反馈问题时附上） |
 
----
+### 支持的数据格式
 
-## 📋 数据来源
+| 格式 | 示例 | 来源 |
+|------|------|------|
+| `` `MODEL_CODE`: 名称 `` | `` `RMX3619`: 真我 GT Neo5 SE `` | [MobileModels](https://github.com/KHwang9883/MobileModels) |
+| `MODEL_CODE : 名称` | `iPhone3,1 : iPhone 4` | [Apple 设备表](https://gist.github.com/adamawolf/3048717) |
 
-本项目的设备型号数据来自以下开源项目：
-
-### MobileModels - 手机品牌型号汇总
-
-- **仓库**: [KHwang9883/MobileModels](https://github.com/KHwang9883/MobileModels)
-- **内容**: 汇总各厂商上市的手机型号与对应的传播名
-- **覆盖**: 小米、华为、OPPO、vivo、三星、苹果等主流品牌
-- **格式**: `` `MODEL_CODE`: 友好名称 ``
-
-### Apple Mobile Device Types
-
-- **Gist**: [adamawolf/Apple_mobile_device_types](https://gist.github.com/adamawolf/3048717)
-- **内容**: Apple 设备内部型号映射（iPhone/iPad/iPod/Apple Watch）
-- **格式**: `MODEL_CODE : 友好名称`
+> **📥 更新型号数据**：内置数据为常用机型快照（~1000 条）。如需完整数据（~8000+ 条），下载 [MobileModels](https://github.com/KHwang9883/MobileModels) 的 `.md` 文件和 [Apple 设备表](https://gist.github.com/adamawolf/3048717) 的 `.txt` 文件，在面板「导入」中选择即可。
 
 ---
 
 ## 🔧 技术细节
 
-### 脚本架构
+### 项目结构（拼接式模块化，无打包器依赖）
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                 AcFunDeviceReveal.user.js                │
-├─────────────────────────────────────────────────────────┤
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────┐  │
-│  │ 解析器      │  │ 索引系统    │  │ 设置管理        │  │
-│  │ (多格式)    │  │ (Map缓存)   │  │ (GM存储)        │  │
-│  └─────────────┘  └─────────────┘  └─────────────────┘  │
-│                         ↓                               │
-│  ┌───────────────────────────────────────────────────┐  │
-│  │           DOM 处理 + MutationObserver              │  │
-│  └───────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────┘
+src/
+  00-header.js        油猴元数据 + IIFE 开头
+  10-constants.js     CONFIG：DOM 选择器、存储 key、阈值
+  20-utils.js         分级日志 + 有界内存日志队列
+  30-storage.js       GM 存储封装
+  40-device-data.js   内置型号表（~1000 条，由 tools/gen-device-data.js 生成，勿手改）
+  50-device.js        四级匹配、文本解析、导入/导出/重置、DOM 替换、面板区块
+  60-observers.js     MutationObserver / 路由监听
+  70-panel.js         设置面板（仿 A 站原生，主色 #fd4c5d）+ Toast
+  80-menu.js          油猴菜单（3 项）
+  90-main.js          启动流程 + window.ACFunDeviceReveal 调试接口
 ```
 
-### 匹配策略
+```bash
+node build.js            # 拼接 src/ -> dist/AcFunDeviceReveal.user.js（含版本一致性校验）
+node tools/unit-test.js  # 单元测试：纯函数输入输出
+node tools/smoke-test.js # 冒烟测试：语法、版本、关键函数
+node tools/gen-device-data.js <MobileModels 数据目录>  # 重新生成内置型号表
+```
 
-1. **精确匹配** - O(1) 哈希查找
-2. **大小写不敏感** - O(1) 大写索引
-3. **去后缀匹配** - O(1) 基础索引（如 `V1821A` → `V1821`）
-4. **前缀匹配** - O(1) + O(k) 小范围遍历
+版本号需同步三处：`package.json`、`src/00-header.js` 的 `@version`、`src/10-constants.js` 的 `VERSION`，build.js 会校验，不一致直接报错。
+
+### 调试接口
+
+脚本暴露 `window.ACFunDeviceReveal`，可在控制台直接调用：
+
+```js
+ACFunDeviceReveal.findFriendlyName('RMX3700')   // → '真我 GT Neo5 SE'
+ACFunDeviceReveal.parseDeviceModelsText(text)    // 解析导入文本
+ACFunDeviceReveal.processDeviceModels()          // 手动触发替换
+ACFunDeviceReveal.getState()                     // 内部状态
+ACFunDeviceReveal.getLogs()                      // 运行日志
+```
 
 ### 存储使用
 
-- `acr_models_data` - 型号数据库
-- `acr_models_meta` - 元数据（版本、数量、更新时间）
+- `acr_models_data` - 型号数据库（沿用 v2.0.0 的 key，升级不丢已导入数据）
+- `acr_models_meta` - 元数据（数量、更新时间）
 - `acr_device_settings` - 用户设置
 
 ---
@@ -172,7 +152,7 @@ A: 点击菜单「🔄 强制重新处理」或刷新页面。
 
 ### Q: 如何更新数据？
 
-A: 重新导入即可，勾选「合并模式」+「跳过已存在的型号」可只添加新数据。
+A: 在面板「导入」重新导入即可，勾选「跳过已存在的型号」可只添加新数据。
 
 ### Q: 支持哪些浏览器？
 
@@ -182,16 +162,39 @@ A: 支持所有能安装 Tampermonkey 的浏览器（Chrome、Firefox、Edge、S
 
 A: 不会。脚本完全本地运行，不上传任何数据。
 
+### Q: 想要 IP 属地显示功能？
+
+A: 请安装二合一版本 [AcFun-Web-IP](https://github.com/name-xxl/AcFun-Web-IP)。
+
+---
+
+## 📋 数据来源
+
+本项目的设备型号数据来自以下开源项目（内置表由 `tools/gen-device-data.js` 自动生成）：
+
+### MobileModels - 手机品牌型号汇总
+
+- **仓库**: [KHwang9883/MobileModels](https://github.com/KHwang9883/MobileModels)
+- **内容**: 汇总各厂商上市的手机型号与对应的传播名（安卓各品牌国行数据）
+- **许可**: CC BY-NC-SA 4.0
+
+### Apple Mobile Device Types
+
+- **Gist**: [adamawolf/Apple_mobile_device_types](https://gist.github.com/adamawolf/3048717)
+- **内容**: Apple 设备内部型号映射（iPhone/iPad/iPod/Apple Watch）
+
 ---
 
 ## 🤝 贡献
 
 欢迎提交 Issue 和 Pull Request！
 
-### 添加新型号
+### 更新型号数据
 
-1. Fork 本项目
-2. 编辑 `BUILTIN_MODELS` 添加新型号
+内置表由脚本生成，不建议手改 `src/40-device-data.js`。更新方式：
+
+1. 准备 [MobileModels](https://github.com/KHwang9883/MobileModels) 仓库内容（含各品牌 `.md` 与 Apple `.txt`）
+2. 运行 `node tools/gen-device-data.js <数据目录>`
 3. 提交 PR
 
 ### 报告问题
@@ -199,14 +202,14 @@ A: 不会。脚本完全本地运行，不上传任何数据。
 请提供以下信息：
 - 浏览器和版本
 - 脚本管理器和版本
-- 控制台日志（F12 → Console）
+- 控制台日志（油猴菜单「📋 复制全部日志」或 F12 → Console）
 - 问题截图
 
 ---
 
 ## 📜 许可证
 
-本项目采用 [MIT 许可证](LICENSE) 开源。
+本项目采用 [MIT 许可证](LICENSE) 开源。内置型号数据遵循上游许可（MobileModels 为 CC BY-NC-SA 4.0）。
 
 ---
 
@@ -215,25 +218,22 @@ A: 不会。脚本完全本地运行，不上传任何数据。
 感谢以下开源项目提供数据支持：
 
 - [**KHwang9883/MobileModels**](https://github.com/KHwang9883/MobileModels) - 手机品牌型号汇总
-  - 汇总各厂商上市的手机型号与对应的传播名
-  - 许可证: CC BY-NC-SA 4.0
-
-- [**adamawolf/Apple_mobile_device_types**](https://gist.github.com/adamawolf/3048717) - Apple 设备型号映射
-  - 提供 iPhone/iPad/iPod/Apple Watch 的内部型号对照表
+- [**adamawolf/Apple_mobile_device_types**](https://gist.github.com/adamawolf/3048717) - Apple 设备型号对照表
 
 ---
 
 ## 📊 统计
 
-- 内置型号: ~200 条（常见机型）
+- 内置型号: ~1000 条（由上游数据自动生成）
 - 完整数据: ~8000+ 条（导入 MobileModels 后）
-- 支持品牌: 小米、华为、OPPO、vivo、三星、苹果、荣耀、一加、realme、魅族等
+- 支持品牌: Apple、小米/Redmi/POCO、华为、荣耀、OPPO/一加/realme、vivo/iQOO、三星、魅族等
 
 ---
 
 ## 🔗 相关链接
 
-- [AcFunDeviceReveal](https://github.com/name-xxl/AcFunDeviceReveal) - 本项目 GitHub 仓库
+- [AcFunDeviceReveal](https://github.com/name-xxl/AcFunDeviceReveal) - 本项目 GitHub 仓库（纯设备美化）
+- [AcFun-Web-IP](https://github.com/name-xxl/AcFun-Web-IP) - 二合一版本（IP 属地 + 设备美化）
 - [AcFun](https://www.acfun.cn/) - A站官网
 - [MobileModels](https://github.com/KHwang9883/MobileModels) - 手机品牌型号汇总
 - [Apple Device Types](https://gist.github.com/adamawolf/3048717) - Apple 设备型号
