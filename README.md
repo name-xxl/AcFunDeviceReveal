@@ -1,16 +1,21 @@
 # AcFunDeviceReveal - A站手机型号美化脚本
 
+> **⚠️ 本仓库已归档（2026-10-15）**：设备型号美化功能已随
+> **[name-xxl/acfun-svfeed](https://github.com/name-xxl/acfun-svfeed)** 落地（评论/原生页一体）。
+> 请改用新脚本；本仓不再维护，代码与数据（CC BY-NC-SA）保留供考古。
+
 [![GitHub stars](https://img.shields.io/github/stars/name-xxl/AcFunDeviceReveal.svg?style=social)](https://github.com/name-xxl/AcFunDeviceReveal/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/name-xxl/AcFunDeviceReveal.svg?style=social)](https://github.com/name-xxl/AcFunDeviceReveal/network/members)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-v2.1.0-blue.svg)](https://github.com/name-xxl/AcFunDeviceReveal/releases)
 
-> **📢 项目合并说明**
+> **📢 项目合并说明（2026-10-15 更新：链条已延伸到 svfeed）**
 >
-> 本项目的设备型号美化功能已于 [AcFun-Web-IP](https://github.com/name-xxl/AcFun-Web-IP) **v5.8.0** 合并，成为「IP 属地显示 + 设备型号美化」二合一脚本。
+> 本项目的设备型号美化功能于 [AcFun-Web-IP](https://github.com/name-xxl/AcFun-Web-IP) **v5.8.0** 合入后，
+> 已随 Web-IP 全量吸收进 [**acfun-svfeed**](https://github.com/name-xxl/acfun-svfeed)（Web-IP 亦已归档）。
 >
-> - 需要 **IP 属地 + 设备美化** 二合一 → 请安装新仓库 [**AcFun-Web-IP**](https://github.com/name-xxl/AcFun-Web-IP)
-> - 只需要 **设备型号美化**（不含 IP 功能）→ 继续使用本仓库，v2.1.0 起为模块化重构版本，后续在此维护
+> - 需要 **IP 属地 + 设备美化** → 请安装 [**acfun-svfeed**](https://github.com/name-xxl/acfun-svfeed)
+> - 本仓库不再维护
 
 ## 📖 项目简介
 
